@@ -55,5 +55,5 @@
   "devDependencies": {
     "concurrently": "^6.4.0"
   },
-  "proxy": "http://localhost:8000"
+  "proxy": "https://netflix-vms.herokuapp.com"
 }

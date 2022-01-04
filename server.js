@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 8000;
 // })
 app.use(express.static(path.resolve(__dirname, './client/build')));
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -612,6 +611,9 @@ app.post('/api/country-content', async (req, res) => {
     res.send(data)
 })
 
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+});
 
 var listener = app.listen(PORT, function(){
     console.log('Listening on port ' + listener.address().port); //Listening on port 8000
