@@ -22,14 +22,37 @@ app.use(express.urlencoded({ extended: true }));
   
 app.use(cors());
 
-let config = {
-    host: "34.69.126.48", //IP address of my Cloud SQL Server
-    user: 'root',
-    password: 'Karannanda95!',
-    database: 'VMS'
-};
+// let config = {
+//     host: "34.69.126.48", //IP address of my Cloud SQL Server
+//     user: 'root',
+//     password: 'Karannanda95!',
+//     database: 'VMS'
+// };
 
+
+
+let config = {
+    host     : 'netflix-vms.cjnhrlike9ax.us-east-2.rds.amazonaws.com',
+    user     : 'admin',
+    password : 'karan1195',
+    port     : '3306',
+    database:'VMS'
+};
 let connection;
+
+
+
+// var connection = mysql.createConnection({
+//     host     : 'netflix-vms.cjnhrlike9ax.us-east-2.rds.amazonaws.com',
+//     user     : 'admin',
+//     password : 'karan1195',
+//     port     : '3306',
+//     database : 'VMS',
+// });
+// var query = connection.query(  "UPDATE F21_S001_16_Content SET VideoData = 'https://www.youtube.com/embed/LTpmw0Ac6Zs' WHERE ContentID = 0001", function(err, result) {
+//     console.log(result);
+//     });
+
 
 
 
