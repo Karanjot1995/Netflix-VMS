@@ -27,23 +27,9 @@
 // };
 
 const listReducer = (state = {}, action) => {
-    // Clone state object
-    const newState = Object.assign({}, state);
-    // Look for type set in the actions file
-    // these types should be as unique as possible
+
     switch (action.type) {
       case "USER_LIST":
-        console.log(action.payload)
-        // Generate random key and populate with default object.
-        // Payload is set in the actions file
-        // newState[
-        //   Math.random()
-        //     .toString(36)
-        //     .replace(/[^a-z]+/g, "")
-        // ] = {
-        //   complete: false,
-        //   label: action.payload
-        // };
         state = {
           ...state,
           ...action.payload
@@ -53,7 +39,6 @@ const listReducer = (state = {}, action) => {
         break;
     }
   
-    // return the modified state
     return state;
   };
   

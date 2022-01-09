@@ -18,14 +18,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setUserData } from "./actions";
 
 
-// import {
-//   decrement,
-//   increment,
-//   incrementByAmount,
-//   incrementAsync,
-//   selectCount,
-// } from './counterSlice'
-
 function App() {
   // const [content, setAllContent] = useState({})
   const userData = useSelector(state => state.userData)

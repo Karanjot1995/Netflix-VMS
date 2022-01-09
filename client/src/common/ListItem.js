@@ -19,7 +19,7 @@ function ListItem(props) {
             console.log('added: ',data)
         )
     }
-    
+
     function removeFromList(cid){
         fetch(`/api/remove-from-list`,{
             method: "POST",
@@ -65,7 +65,7 @@ function ListItem(props) {
                     <div className="card-details text-center mb-3">
                     <img width={"100%"} heigth={'100px'} src={imgData?imgData:'https://www.russorizio.com/wp-content/uploads/2016/07/ef3-placeholder-image.jpg'}/>
                         <div className="p-3">
-                            <div className="d-flex justify-content-between pb-3">
+                            <div className="d-flex justify-content-between pb-3 text-start">
                                 {props.item['ContentName']? <p className="title text-white">{props.item['ContentName']}</p>:''}
                                 {props.item['AverageRating']? <p className="text-white">{props.item['AverageRating'].toFixed(1)}/10</p>:''}
                                 {props.item['avgRating']? <p className="text-white">{props.item['avgRating'].toFixed(1)}/10</p>:''}
