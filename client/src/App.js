@@ -14,10 +14,32 @@ import Shows from "./AllContent/Shows";
 import Movies from "./AllContent/Movies";
 import GenrePage from "./GenrePage/GenrePage";
 import UserContent from "./UserContent/UserContent";
+import { useSelector, useDispatch } from 'react-redux'
+import { setUserData } from "./actions";
 
+
+// import {
+//   decrement,
+//   increment,
+//   incrementByAmount,
+//   incrementAsync,
+//   selectCount,
+// } from './counterSlice'
 
 function App() {
-  const [content, setAllContent] = useState({})
+  // const [content, setAllContent] = useState({})
+  const userData = useSelector(state => state.userData)
+  const dispatch = useDispatch()
+
+  useEffect(async () => {
+    fetch(`/api/user-list`,{
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({userid:21001})
+    }).then(res=>res.json()).then(data=>
+      dispatch(setUserData(data))
+    )
+  },[]);
 
 
   return (

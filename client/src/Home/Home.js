@@ -25,7 +25,7 @@ function Home () {
         fetch(`/api/shows`).then(res => res.json()).then(data=>setShows(data))
         fetch(`/api/movies`).then(res => res.json()).then(data=>console.log(data))
 
-        fetch(`/api//all-content`).then(res => res.json()).then(data=>setAllContent(data))
+        fetch(`/api/all-content`).then(res => res.json()).then(data=>setAllContent(data))
         fetch(`/api/popular`,{
             method: "POST",
             headers: { 'Content-Type': 'application/json' },

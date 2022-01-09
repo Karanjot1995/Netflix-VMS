@@ -54,7 +54,9 @@ let connection;
 //     });
 
 
-
+app.post('/api/test-url', async (req, res) => {
+    res.send(req.body)
+})
 
 // function conn (){
 //     let connection = mysql.createConnection(config);
