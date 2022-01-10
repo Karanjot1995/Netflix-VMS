@@ -235,6 +235,9 @@
     img{
         border-radius: 5px;
     }
+    a{
+        cursor: pointer;
+    }
     .dropdown{
         background: transparent;
         visibility: hidden;
@@ -275,3 +278,16 @@
       color: #fff!important;
     }
   }
+
+.login-btn-header a{
+    float: none;
+    margin-top: 0;
+    white-space: nowrap;
+    background-color: #e50914;
+    line-height: normal;
+    padding: 7px 17px;
+    font-weight: 400;
+    font-size: 1rem;
+    float: right;
+    border-radius: 3px;
+}

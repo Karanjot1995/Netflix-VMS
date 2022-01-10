@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import SliderSection from "../common/Slider/SliderSection";
 import { BASE_API_URL } from "../utils/constants";
 
 function UserContent () {
-    const [userData, setUserData] = useState({})
+    // const [userData, setUserData] = useState({})
+    const userData = useSelector(state => state.user.userData)
 
-    function getData(){
-        fetch(`/api/user-list`,{
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({userid:21001})
-        }).then(res=>res.json()).then(data=>
-            setUserData(data)
-        )
-    }
+    // function getData(){
+    //     fetch(`/api/user-list`,{
+    //         method: "POST",
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({userid:21001})
+    //     }).then(res=>res.json()).then(data=>
+    //         setUserData(data)
+    //     )
+    // }
 
 
-    useEffect(async () => {
-        getData()
-    },[]);
+    // useEffect(async () => {
+    //     setUserData(userData)
+    // },[]);
 
 
     console.log(userData)

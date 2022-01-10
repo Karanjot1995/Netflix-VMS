@@ -20,18 +20,21 @@ import { setUserData } from "./actions";
 
 function App() {
   // const [content, setAllContent] = useState({})
-  const userData = useSelector(state => state.userData)
-  const dispatch = useDispatch()
+  // const userData = useSelector(state => state.userData)
+  // const dispatch = useDispatch()
+  const userData = useSelector(state => state.user.userData)
+  const isLogged = useSelector(state => state.user.isLogged)
 
-  useEffect(async () => {
-    fetch(`/api/user-list`,{
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({userid:21001})
-    }).then(res=>res.json()).then(data=>
-      dispatch(setUserData(data))
-    )
-  },[]);
+  // useEffect(async () => {
+  //   fetch(`/api/user-list`,{
+  //     method: "POST",
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({userid:21001})
+  //   }).then(res=>res.json()).then(data=>
+  //     dispatch(setUserData(data))
+  //   )
+  // },[]);
+  console.log(userData,isLogged)
 
 
   return (
@@ -45,14 +48,44 @@ function App() {
         <Route exact path="/shows"><Shows/></Route>
         <Route path={["/movies/:id","/shows/:id"]}><GenrePage/></Route>
         <Route path="/movies"><Movies/></Route>
-        <Route path="/latest"><NewPopular/></Route>             
-        <Route path="/my-list"><UserContent/></Route> 
+        <Route path="/latest"><NewPopular/></Route>  
         <Route path={`/content/:id`}><Content/></Route>  
-        <Route exact path="/login"><Login/></Route>
         <Route exact path="/register"><Register/></Route>
-        <Route exact path="/profile"><Profile/></Route>        
+        <Route exact path="/profile"><Profile/></Route>   
+        <Route path="/login" 
+          render={() =>
+            isLogged ? (
+              <Redirect to ="/home"/>
+            ) : (
+              <Login />
+          )}
+        >
+        </Route>
+        <Route path="/register" 
+          render={() =>
+            isLogged ? (
+              <Redirect to ="/home"/>
+            ) : (
+              <Register />
+          )}
+        >
+        </Route>
+        <Route path="/my-list" 
+          render={() =>
+            !isLogged ? (
+              <Redirect to ="/login"/>
+            ) : (
+              <UserContent />
+          )}
+        >
+        </Route>
       </Switch>
-         
+      {/* <Route path="/login" component={isLogged? <Redirect to ="/home"/>: Login}></Route>
+        {isLogged?<Route path="/my-list"><UserContent/></Route>: <Redirect to ="/login"/>} */}
+      {/* <Route path="/login">{isLogged?<Redirect to ="/home"/>:null}</Route> */}
+
+      {/* {isLogged?<Route path="/my-list"><UserContent/></Route>: <Redirect to ="/login"/>} */}
+
     </div>
   );
 }

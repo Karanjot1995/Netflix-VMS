@@ -3,11 +3,17 @@ import Search from "./Search";
 // import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { useLocation, matchPath ,useHistory} from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { setUserData } from "../actions";
 
 
 function Header (){
     const location = useLocation();
     let history = useHistory();
+    const userData = useSelector(state => state.user.userData)
+    const isLogged = useSelector(state => state.user.isLogged)
+
+    const dispatch = useDispatch()
 
     const match = matchPath(location.pathname, {
         path: '/:page',
@@ -21,6 +27,11 @@ function Header (){
         }else{
             history.goBack()
         }
+    }
+
+    function logout(){
+        dispatch(setUserData({userData:{},isLogged:false}))
+        history.push('/login')
     }
        
     return (
@@ -67,17 +78,23 @@ function Header (){
                 <li className="navigation-menu d-flex">
                     <Search/>
                 </li>
-                <li className="user-dropdown">
-                    <img src="https://ih0.redbubble.net/image.618427277.3222/flat,1000x1000,075,f.u2.jpg" width="30px" height="30px"/>
-                    <div className="dropdown">
-                        <ul>
-                            <li><a href="#">Account</a></li>
-                            <li><a href="#">Manage Profile</a></li>
-                            <li><a href="#">Logout</a></li>
-                        </ul>
-                    </div>
-                    {/* <User/> */}
-                </li>
+                {isLogged? 
+                    <li className="user-dropdown">
+                        <img src="https://ih0.redbubble.net/image.618427277.3222/flat,1000x1000,075,f.u2.jpg" width="30px" height="30px"/>
+                        <div className="dropdown">
+                            <ul>
+                                <li><a href="#">Account</a></li>
+                                <li><a href="#">Manage Profile</a></li>
+                                <li><a onClick={logout}>Logout</a></li>
+                            </ul>
+                        </div>
+                        {/* <User/> */}
+                    </li>
+                    :
+                    <li className="login-btn-header">
+                    <a href="/login" class="authLinks redButton" data-uia="header-login-link">Sign In</a>
+                    </li>
+                }
             </ul>
 
         </div>

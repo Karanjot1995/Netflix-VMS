@@ -26,20 +26,30 @@
 // 	}
 // };
 
-const listReducer = (state = {}, action) => {
+const INITIAL_STATE = {
+	isLogged:false,
+  userData:{}
+}
 
-    switch (action.type) {
-      case "USER_LIST":
-        state = {
-          ...state,
-          ...action.payload
-        }
-        break;
-      default:
-        break;
-    }
-  
-    return state;
-  };
+const listReducer = (state = INITIAL_STATE, action) => {
+  // const newState = Object.assign({}, state);
+  switch (action.type) {
+    case "USER_LIST":
+      // return {
+      // }
+      state = {
+        ...state,
+        ...action.payload
+      }
+      // newState["userData"] = {
+      //   ...action.payload
+      // };
+      break;
+    default:
+      break;
+  }
+
+  return state;
+};
   
   export default listReducer;

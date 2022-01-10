@@ -4,20 +4,28 @@ import { BsPlusCircle } from 'react-icons/bs';
 import {AiOutlineMinusCircle} from 'react-icons/ai';
 import { BASE_API_URL } from "../utils/constants";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 
 function ListItem(props) {
     const [inList, setInlist] = useState(false)
-    const userData = useSelector(state => state.userData)
+    const userData = useSelector(state => state.user.userData)
+    const isLogged = useSelector(state => state.user.isLogged)
+    let history = useHistory();
 
     function addToList(cid){
-        fetch(`/api/add-to-list`,{
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({userid:21001, contentID:cid})
-        }).then(res=>res.json()).then(data=>
-            console.log('added: ',data)
-        )
+        if(isLogged){
+            fetch(`/api/add-to-list`,{
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({userid:21001, contentID:cid})
+            }).then(res=>res.json()).then(data=>
+                console.log('added: ',data)
+            )
+        }else{
+            history.push('/login')
+        }
+
     }
 
     function removeFromList(cid){
@@ -31,11 +39,14 @@ function ListItem(props) {
     }
 
     useEffect(async () => {
-        userData.userContent.map(c=>{
-            if(c.ContentID == props.item['ContentID']){
-                setInlist(true)
-            }
-        })
+        if(userData.userContent?.length){
+            userData.userContent.map(c=>{
+                if(c.ContentID == props.item['ContentID']){
+                    setInlist(true)
+                }
+            })
+        }
+
     },[]);
 
 

@@ -6,30 +6,12 @@ const util = require('util');
 const cors = require("cors");
 const mysql = require('mysql');
 const PORT = process.env.PORT || 8000;
-
-// app.use(express.static(path.join(__dirname, './build')))
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, './build'))
-// })
+var router = express.Router();
 app.use(express.static(path.resolve(__dirname, './client/build')));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// var corsOptions = {
-//     origin: "http://localhost:8000"
-// };
-  
 app.use(cors());
-
-// let config = {
-//     host: "34.69.126.48", //IP address of my Cloud SQL Server
-//     user: 'root',
-//     password: 'Karannanda95!',
-//     database: 'VMS'
-// };
-
-
+app.use("/", require("./routes"));
 
 let config = {
     host     : 'netflix-vms.cjnhrlike9ax.us-east-2.rds.amazonaws.com',
@@ -51,12 +33,8 @@ let connection;
 // });
 // var query = connection.query(  "UPDATE F21_S001_16_Content SET VideoData = 'https://www.youtube.com/embed/LTpmw0Ac6Zs' WHERE ContentID = 0001", function(err, result) {
 //     console.log(result);
-//     });
+// });
 
-
-app.post('/api/test-url', async (req, res) => {
-    res.send(req.body)
-})
 
 // function conn (){
 //     let connection = mysql.createConnection(config);
@@ -68,6 +46,8 @@ app.post('/api/test-url', async (req, res) => {
 //     connection = null;
 //     query = null;
 // }
+
+
 
 app.get('/api/all-content', async (req, res) => {
     let data = {content:[]}
