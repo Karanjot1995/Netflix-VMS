@@ -94,17 +94,72 @@ exports.login = async function(req, res) {
 
 // Display list of all books.
 exports.register = async function(req, res) {
-    let connection = mysql.createConnection(config);
-    connection.connect();
-    let query = util.promisify(connection.query).bind(connection);
-
     const email = req.body.email;
     const password = req.body.password;
-    let result = await query(
-      "INSERT INTO users (Email, UserPassword) VALUES (?,?)",
-      [email, password],
-      (err, result)=> {
-      console.log(err);
-      }
-    );
+
+    try {
+        let connection = mysql.createConnection(config);
+        connection.connect();
+        let query = util.promisify(connection.query).bind(connection);
+
+        let userDetails = {
+            Email: req.body.Email,
+            UserPassword: req.body.UserPassword,
+            Fname: req.body.Fname,
+            Lname: req.body.Lname,
+            PhoneNo: Number(req.body.PhoneNo),
+            DOB: req.body.DOB, 
+            CardNo: Number(req.body.CardNo),
+            CVV: Number(req.body.CVV),
+            ExpiryDate: Number(req.body.ExpiryDate)
+        }
+        let user = await query(          
+            `SELECT PhoneNo, Email, CardNo 
+            FROM F21_S001_16_Customer 
+            WHERE PhoneNo = ${userDetails.PhoneNo} OR Email = '${userDetails.Email}' OR CardNo = ${userDetails.CardNo}`
+        )
+
+        let errMsg = {};
+
+        console.log(user)
+        if(user.length){
+            user.map(u=>{
+                if(userDetails.PhoneNo == u.PhoneNo){
+                    errMsg['phone'] = 'Phone number already registered!'
+                    // errMsg.push('Phone number already registered!')
+                }
+                if(userDetails.Email == u.Email){
+                    errMsg['email'] = 'Email already registered!'
+                    // errMsg.push('Email already registered!')
+                }
+                if(userDetails.CardNo == u.CardNo){
+                    errMsg['card'] = 'Please check Card number!'
+                    // errMsg.push('Please check Card number!')
+                }
+            })
+
+            // let errMsg = duplicateEntry.join(', ')
+            res.send({message: errMsg, success:false})
+        }else{
+            let newUser = await query(
+                `INSERT INTO F21_S001_16_Customer 
+                (Fname,Lname,DOB,UserPassword,PhoneNo,Email,CardNo,CVV,ExpiryDate) 
+                VALUES ('${userDetails.Fname}','${userDetails.Lname}',${userDetails.DOB},'${userDetails.UserPassword}',
+                    ${userDetails.PhoneNo},'${userDetails.Email}',${userDetails.CardNo},${userDetails.CVV},${userDetails.ExpiryDate}
+                )`
+            )
+            console.log(newUser)
+            res.send({message: "Successfully Signed up!",success:true})
+        }
+    } catch (err) {
+        console.error('why this error: ', err);
+    } finally {
+        if (connection) {
+            try {
+                connection.end();            
+            } catch (err) {
+            console.error(err);
+            }
+        }
+    }
 };

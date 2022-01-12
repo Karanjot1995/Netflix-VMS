@@ -177,4 +177,34 @@
         }
     }
 
+    .register-form{
+        .row-inputs{
+            display: flex;
+            justify-content: space-between;
+        }
+        .lInput{
+            width:50%;
+            padding-right:5%;
+            position: relative;
+            .error-msg{
+                position: absolute;
+                font-size: 10px;
+                color: #e50914;
+            }
+        }
+    }
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+}
+.register{
+    .login-body{
+        max-width:600px;
+    }
+    // .login-btn{
+    //     width: 80%;
+    //     margin-left: auto;
+    //     margin-right: auto;
+    // }
 }
