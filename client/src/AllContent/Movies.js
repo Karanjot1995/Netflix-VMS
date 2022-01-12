@@ -91,10 +91,10 @@ function Movies () {
                     : ''}
                 </div>
                 {newReleases.content && newReleases.content.length ? 
-                    <SliderSection list={newReleases.content} title="New Releases"/>
+                    <SliderSection list={newReleases.content} keyWord={'new-releases'} title="New Releases"/>
                 :''}
                 {popular.mostViewed && popular.mostViewed && 
-                    <SliderSection title={'Popular on Netflix'} list={popular.mostViewed}/>
+                    <SliderSection title={'Popular on Netflix'} keyWord={'popular'} list={popular.mostViewed}/>
                 }
                 {Object.keys(genMovies).map(genre=>
                     <SliderSection list={genMovies[genre]} genre={genre}/>

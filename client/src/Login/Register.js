@@ -1,267 +1,3 @@
-// import React, { Component } from "react";
-// import Form from "react-validation/build/form";
-// import Input from "react-validation/build/input";
-// import CheckButton from "react-validation/build/button";
-// import { isEmail } from "validator";
-
-// import AuthService from "../services/auth.service";
-
-// const required = value => {
-//   if (!value) {
-//     return (
-//       <div className="alert alert-danger" role="alert">
-//         This field is required!
-//       </div>
-//     );
-//   }
-// };
-
-// const email = value => {
-//   if (!isEmail(value)) {
-//     return (
-//       <div className="alert alert-danger" role="alert">
-//         This is not a valid email.
-//       </div>
-//     );
-//   }
-// };
-
-// const vusername = value => {
-//   if (value.length < 3 || value.length > 20) {
-//     return (
-//       <div className="alert alert-danger" role="alert">
-//         The username must be between 3 and 20 characters.
-//       </div>
-//     );
-//   }
-// };
-
-// const vpassword = value => {
-//   if (value.length < 6 || value.length > 40) {
-//     return (
-//       <div className="alert alert-danger" role="alert">
-//         The password must be between 6 and 40 characters.
-//       </div>
-//     );
-//   }
-// };
-
-// export default class Register extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.handleRegister = this.handleRegister.bind(this);
-//     this.onChangeUsername = this.onChangeUsername.bind(this);
-//     this.onChangeEmail = this.onChangeEmail.bind(this);
-//     this.onChangePassword = this.onChangePassword.bind(this);
-
-//     this.state = {
-//       username: "",
-//       email: "",
-//       password: "",
-//       successful: false,
-//       message: ""
-//     };
-//   }
-
-//   onChangeUsername(e) {
-//     this.setState({
-//       username: e.target.value
-//     });
-//   }
-
-//   onChangeEmail(e) {
-//     this.setState({
-//       email: e.target.value
-//     });
-//   }
-
-//   onChangePassword(e) {
-//     this.setState({
-//       password: e.target.value
-//     });
-//   }
-
-//   handleRegister(e) {
-//     e.preventDefault();
-
-//     this.setState({
-//       message: "",
-//       successful: false
-//     });
-
-//     this.form.validateAll();
-
-//     if (this.checkBtn.context._errors.length === 0) {
-//       AuthService.register(
-//         this.state.username,
-//         this.state.email,
-//         this.state.password
-//       ).then(
-//         response => {
-//           this.setState({
-//             message: response.data.message,
-//             successful: true
-//           });
-//         },
-//         error => {
-//           const resMessage =
-//             (error.response &&
-//               error.response.data &&
-//               error.response.data.message) ||
-//             error.message ||
-//             error.toString();
-
-//           this.setState({
-//             successful: false,
-//             message: resMessage
-//           });
-//         }
-//       );
-//     }
-//   }
-
-//   render() {
-//     return (
-//       <div className="pt-100">
-//         <div className="card card-container">
-//           <img
-//             src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-//             alt="profile-img"
-//             className="profile-img-card"
-//           />
-
-//           <Form
-//             onSubmit={this.handleRegister}
-//             ref={c => {
-//               this.form = c;
-//             }}
-//           >
-//             {!this.state.successful && (
-//               <div>
-//                 <div className="form-group">
-//                   <label htmlFor="username">Username</label>
-//                   <Input
-//                     type="text"
-//                     className="form-control"
-//                     name="username"
-//                     value={this.state.username}
-//                     onChange={this.onChangeUsername}
-//                     validations={[required, vusername]}
-//                   />
-//                 </div>
-
-//                 <div className="form-group">
-//                   <label htmlFor="email">Email</label>
-//                   <Input
-//                     type="text"
-//                     className="form-control"
-//                     name="email"
-//                     value={this.state.email}
-//                     onChange={this.onChangeEmail}
-//                     validations={[required, email]}
-//                   />
-//                 </div>
-
-//                 <div className="form-group">
-//                   <label htmlFor="password">Password</label>
-//                   <Input
-//                     type="password"
-//                     className="form-control"
-//                     name="password"
-//                     value={this.state.password}
-//                     onChange={this.onChangePassword}
-//                     validations={[required, vpassword]}
-//                   />
-//                 </div>
-
-//                 <div className="form-group">
-//                   <button className="btn btn-primary btn-block">Sign Up</button>
-//                 </div>
-//               </div>
-//             )}
-
-//             {this.state.message && (
-//               <div className="form-group">
-//                 <div
-//                   className={
-//                     this.state.successful
-//                       ? "alert alert-success"
-//                       : "alert alert-danger"
-//                   }
-//                   role="alert"
-//                 >
-//                   {this.state.message}
-//                 </div>
-//               </div>
-//             )}
-//             <CheckButton
-//               style={{ display: "none" }}
-//               ref={c => {
-//                 this.checkBtn = c;
-//               }}
-//             />
-//           </Form>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
-// import React, { useState, useEffect } from "react";
- 
-// function Register() {
-//   const [emailReg, setEmailReg] = useState("");
-//   const [passwordReg, setPasswordReg] = useState ("");
-//   const [loginStatus, setLoginStatus] = useState("");
-
-//   const register = () => {
-//     fetch(`/users/register`,{
-//       method: "POST",
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({email: emailReg,password: passwordReg})
-//     }).then(res=>res.json()).then(data=>
-//         console.log('added: ',data)
-//     )
-//     // Axios.post("http://localhost:3001/register", {
-//     //   username: usernameReg,
-//     //   password: passwordReg,
-//     //  }).then((response) => {
-//     //     console.log(response);
-//     //  });
-//    };
-
-
-//    return (
-//      <div className="login-page">
-//         <div className="registration">
-//           <h1>Registration</h1>
-//           <label>Email</label>
-//           <input 
-//             type="email" 
-//             onChange={(e) => {
-//               setEmailReg(e.target.value);
-//             }}
-//           /><br/>
-//           <label>password</label>
-//           <input 
-//             type="text"
-//             onChange={(e) =>{
-//               setPasswordReg(e.target.value);
-//             }}
-//           /> <br />
-//           <button onClick={register}> Register</button>
-//         </div>
-//      </div>
-//    );
-// }
- 
-// export default Register;
-
-
-
-
-
-
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserData } from "../actions";
@@ -295,8 +31,8 @@ function Register() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     }).then(res=>res.json()).then(data=>{
-      console.log(data)
       if(data.success){
+        // alert(data.message)
         history.push('/login')
       }else{
         setErrMsgs(data.message)
@@ -319,7 +55,7 @@ function Register() {
        <div className="login-body">
         <div className="login-form">
         <h1 className="login-title text-start">Register</h1>
-          <form className="register-form" id="register-form">
+          <form className="register-form" id="register-form"  onSubmit={register}>
             <div className="personal-info">
               <h2 className="text-start">Personal Information</h2>
               <div className="row-inputs">
@@ -327,7 +63,7 @@ function Register() {
                   <input
                     className=""
                     type="text"
-                    placeholder="First name"
+                    placeholder="First name*"
                     onChange = { (e) => {
                       setFname (e.target.value);
                     }}
@@ -351,7 +87,7 @@ function Register() {
                   <input
                     className="email"
                     type="email"
-                    placeholder="Email"
+                    placeholder="Email*"
                     onChange = { (e) => {
                       setEmail (e.target.value);
                     }}
@@ -363,7 +99,7 @@ function Register() {
                   <input
                     className="password"
                     type="password"
-                    placeholder="Password"
+                    placeholder="Password*"
                     onChange = { (e) => {
                       setPassword (e.target.value);
                     }}
@@ -377,7 +113,7 @@ function Register() {
                   <input
                     className=""
                     type="number"
-                    placeholder="Phone Number"
+                    placeholder="Phone Number*"
                     maxlength="10"
                     onInput={(e)=>chkLen(e,10)}
                     onChange = { (e) => {
@@ -391,7 +127,7 @@ function Register() {
                   <input
                     className=""
                     type="date"
-                    placeholder="Date of birth..."
+                    placeholder="Date of birth*"
                     onChange = { (e) => {
                       setDob (e.target.value);
                     }}
@@ -403,8 +139,8 @@ function Register() {
             
 
             <div classname="payment-details">
-              <h2 className="text-start">Payment Details</h2>
-              <div className="row-inputs">
+              <h2 className="text-start title">Payment Details</h2>
+              <div className="row-inputs pd-acc">
                 <div className="lInput">
                   <input
                     className=""
@@ -446,7 +182,7 @@ function Register() {
               </div>
             </div>
            
-            <button type="submit" onSubmit={register} className="login-btn">Register</button>
+            <button type="submit" className="login-btn">Register</button>
           </form>
           <div className="login-signup-now text-start" data-uia="login-signup-now">
                   {`Already a member? `}

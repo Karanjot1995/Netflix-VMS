@@ -97,33 +97,24 @@ function Home () {
         return (
             <div className="home pt-50">
                 <div className="banner">
-                    {/* <h3 className="fs-50 top-picks text-uppercase">Top Picks for You</h3> */}
-                    {/* <h3 className="mb-5 text-center">Top 5 Rated Movies</h3> */}
                     {popular.mostViewed && popular.mostViewed.length ? 
                     <Slider className="mb-5" {...settings1}>
                         {popular.mostViewed.slice(0,5).map((item)=><Banner item={item} />)}
                     </Slider>
                     : ''}
                 </div>
-                <div className="section text-center">
-                    <h3 className="mb-5">Rating above {rating} ({bestRated.bestRated && bestRated.bestRated.length ? bestRated.bestRated.length:''})</h3>
-                    <p className="mb-5"><span>Select best rated movies above </span><input ref={textInput} defaultValue={rating} type="number"/><button onClick={()=>changeRating()}>Submit</button></p>
+                <div className="text-center">
+                    {/* <h3 className="mb-5">Rating above {rating} ({bestRated.bestRated && bestRated.bestRated.length ? bestRated.bestRated.length:''})</h3>
+                    <p className="mb-5"><span>Select best rated movies above </span><input ref={textInput} defaultValue={rating} type="number"/><button onClick={()=>changeRating()}>Submit</button></p> */}
                     {bestRated.bestRated && bestRated.bestRated.length && 
-                    <Slider className="mb-5" {...settings}>
-                        {bestRated.bestRated.map(item=><ListItem item={item} />)}
-                    </Slider>
+                    // <Slider className="mb-5" {...settings}>
+                    //     {bestRated.bestRated.map(item=><ListItem item={item} />)}
+                    // </Slider>
+                    <SliderSection keyWord={'top-rated'} title={"Top rated on Netflix"} list={bestRated.bestRated}/>
                     }
                 </div>
-                {/* <div className="section">
-                    <h3 className="text-left mb-3">Popular on Netflix</h3>
-                    {popular.mostViewed && popular.mostViewed && 
-                    <Slider className="mt-5 mb-5" {...settings}>
-                        {popular.mostViewed.map(item=><ListItem item={item} />)}
-                    </Slider>
-                    }
-                </div> */}
                 {popular.mostViewed && popular.mostViewed && 
-                    <SliderSection title={'Popular on Netflix'} list={popular.mostViewed}/>
+                    <SliderSection keyWord={'popular'} title={'Popular on Netflix'} list={popular.mostViewed}/>
                 }
 
                 {/* <div className="section">

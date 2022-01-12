@@ -31,8 +31,12 @@ let connection;
 //     port     : '3306',
 //     database : 'VMS',
 // });
-// var query = connection.query(  "UPDATE F21_S001_16_Content SET VideoData = 'https://www.youtube.com/embed/LTpmw0Ac6Zs' WHERE ContentID = 0001", function(err, result) {
-//     console.log(result);
+// var query = connection.query(  "DELETE FROM F21_S001_16_Customer where DOB = '0000-00-00'", function(err, result) {
+//     if(err){
+//         console.log(err)
+//     }else{
+//         console.log(result)
+//     }
 // });
 
 

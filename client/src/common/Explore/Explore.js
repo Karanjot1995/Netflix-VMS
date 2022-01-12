@@ -7,20 +7,36 @@ import { BASE_API_URL } from "../../utils/constants";
 
 function Explore (props) {  
     const [content, setContent] = useState([])
-    const {genre,title, closeModal} = props
+    const {genre,title, closeModal, keyWord} = props
     const ref = useRef(null);
 
     useEffect(async () => {
         let c = []
+        console.log(genre)
         // let hash = 	data.map((item)=>hash[item['GENRE']]?hash[item['GENRE']].push(item) : hash[item['GENRE']] = [item])
-        fetch(`/api/all-content`).then(res => res.json()).then(data=> {
-            if(data.content && data.content.length){
-                for(let g of genre){
-                    data.content.map((item)=> item['Genre'].includes(g)?c.push(item):'');
+        if(genre.length>0){
+            fetch(`/api/all-content`).then(res => res.json()).then(data=> {
+                if(data.content && data.content.length){
+                    for(let g of genre){
+                        data.content.map((item)=> item['Genre'].includes(g)?c.push(item):'');
+                    }
+                    setContent(c)
                 }
-                setContent(c)
+            })
+        }else{
+            if(keyWord == 'top-rated'){
+                fetch(`/api/best-rated`, {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({rating:9})
+                }).then(res => res.json()).then(data=>setContent(data.bestRated));
+            }else if(keyWord == 'popular'){
+                fetch(`/api/popular`,{
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                }).then(res => res.json()).then(data=>setContent(data.mostViewed))
             }
-        })
+        }
     },[]);
 
     const handleClickOutside = (event) => {

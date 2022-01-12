@@ -108,7 +108,7 @@ exports.register = async function(req, res) {
             Fname: req.body.Fname,
             Lname: req.body.Lname,
             PhoneNo: Number(req.body.PhoneNo),
-            DOB: req.body.DOB, 
+            DOB: new Date(req.body.DOB).toISOString().slice(0,10), 
             CardNo: Number(req.body.CardNo),
             CVV: Number(req.body.CVV),
             ExpiryDate: Number(req.body.ExpiryDate)
@@ -121,7 +121,6 @@ exports.register = async function(req, res) {
 
         let errMsg = {};
 
-        console.log(user)
         if(user.length){
             user.map(u=>{
                 if(userDetails.PhoneNo == u.PhoneNo){
@@ -137,14 +136,14 @@ exports.register = async function(req, res) {
                     // errMsg.push('Please check Card number!')
                 }
             })
-
+            console.log(errMsg)
             // let errMsg = duplicateEntry.join(', ')
             res.send({message: errMsg, success:false})
         }else{
             let newUser = await query(
                 `INSERT INTO F21_S001_16_Customer 
                 (Fname,Lname,DOB,UserPassword,PhoneNo,Email,CardNo,CVV,ExpiryDate) 
-                VALUES ('${userDetails.Fname}','${userDetails.Lname}',${userDetails.DOB},'${userDetails.UserPassword}',
+                VALUES ('${userDetails.Fname}','${userDetails.Lname}','${userDetails.DOB}','${userDetails.UserPassword}',
                     ${userDetails.PhoneNo},'${userDetails.Email}',${userDetails.CardNo},${userDetails.CVV},${userDetails.ExpiryDate}
                 )`
             )

@@ -11,7 +11,7 @@ import Explore from "../Explore/Explore";
 function SliderSection (props) {  
     const[explore, setExplore] = useState(false)
     const location = useLocation();
-    const {list,genre,id, title} = props
+    const {list,genre,id, title, keyWord} = props
 
     const [components, setComponents] = useState([]); 
   
@@ -50,8 +50,14 @@ function SliderSection (props) {
 
     function openExplore(){
         let g = [];
-        id? g = [genre,id] : g = [genre];
-        setComponents([<Explore title={t} genre={g} closeModal={closeExplore}/>]) 
+        if(genre){
+            g.push(genre)
+        }
+        if(id){
+            g.push(id)
+        }
+        // id? g = [genre,id] : g = [genre];
+        setComponents([<Explore title={t} keyWord={keyWord} genre={g} closeModal={closeExplore}/>]) 
     }
 
 
