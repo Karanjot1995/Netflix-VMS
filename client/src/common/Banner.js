@@ -8,7 +8,7 @@ class Banner extends Component {
         // console.log(props)
        
         return (
-            <div className="banner-item">
+            <div className="banner-item" style={{"background-image": `url('${props.item['ImageData']}')`}}>
                 <div className="p-5 b-txt text-uppercase">
                     <div className="banner-desc">
                     {/* <img width={'100px'} heigth={'100px'} src={'https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg'}/> */}

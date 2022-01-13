@@ -416,12 +416,16 @@ h1,h2,h3,p,span{
   }
   .slick-slider{
     width:100%;
+    .slick-dots li button:before{
+      color:#fff!important;
+    }
     .banner-item{
       position: relative;
-      background: url('https://e00-marca.uecdn.es/assets/multimedia/imagenes/2021/11/15/16370114482906.jpg');     
+      // background: url('https://e00-marca.uecdn.es/assets/multimedia/imagenes/2021/11/15/16370114482906.jpg');     
       background-repeat: no-repeat;
       background-size: 100% 100%;        
       height: 600px;
+
       .b-txt{
         position: relative;
         height:100%;
