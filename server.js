@@ -525,7 +525,7 @@ app.post('/api/user-list', async (req, res) => {
 
 
 app.post('/api/add-to-list', async (req, res) => {
-    let data = {userContent:[]}
+    let data = {userContent:[],updatedContent:[]}
     let userID = req.body.userid
     let cid = req.body.contentID
     var todayDate = new Date().toISOString().slice(0,10);
@@ -537,7 +537,18 @@ app.post('/api/add-to-list', async (req, res) => {
         let userContent = await query(
             `INSERT INTO F21_S001_16_Watches (ContentID, CustomerID, WatchingDate, WatchingTime) VALUES (${cid},${userID},'${todayDate}','00:15')`
         )
-
+        let updatedContent = await query(
+            `select U.CustomerID, C.ContentID, C.ContentName, C.ImageData, C.Date_of_Release, C.AverageRating, CG.Genre, CL.ContentType
+            from F21_S001_16_Content C, (
+                select ContentId, GROUP_CONCAT(Genre) as Genre
+                from F21_S001_16_ContentGenre
+                group by ContentId
+            ) CG , F21_S001_16_ContentLocation CL, F21_S001_16_Watches W, F21_S001_16_Customer U
+            where C.ContentId = CG.ContentID and C.ContentID = CL.ContentID
+            and U.CustomerID = '${userID}' and C.ContentID = W.ContentID and W.CustomerID = '${userID}'`
+        )
+        data.userContent = userContent
+        data.updatedContent = updatedContent
         data.userContent = userContent
         connection.commit()
     
@@ -558,7 +569,7 @@ app.post('/api/add-to-list', async (req, res) => {
 
 
 app.post('/api/remove-from-list', async (req, res) => {
-    let data = {userContent:[]}
+    let data = {userContent:[],updatedContent:[]}
     let userID = req.body.userid
     let cid = req.body.contentID
 
@@ -569,7 +580,18 @@ app.post('/api/remove-from-list', async (req, res) => {
         let userContent = await query(
             `DELETE FROM F21_S001_16_Watches where ContentID = ${cid} and CustomerID = ${userID}`
         )
+        let updatedContent = await query(
+            `select U.CustomerID, C.ContentID, C.ContentName, C.ImageData, C.Date_of_Release, C.AverageRating, CG.Genre, CL.ContentType
+            from F21_S001_16_Content C, (
+                select ContentId, GROUP_CONCAT(Genre) as Genre
+                from F21_S001_16_ContentGenre
+                group by ContentId
+            ) CG , F21_S001_16_ContentLocation CL, F21_S001_16_Watches W, F21_S001_16_Customer U
+            where C.ContentId = CG.ContentID and C.ContentID = CL.ContentID
+            and U.CustomerID = '${userID}' and C.ContentID = W.ContentID and W.CustomerID = '${userID}'`
+        )
         data.userContent = userContent
+        data.updatedContent = updatedContent
         connection.commit()
     } catch (err) {
         console.error('why this error: ', err);

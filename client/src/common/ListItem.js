@@ -3,8 +3,9 @@ import { FaRegPlayCircle } from 'react-icons/fa';
 import { BsPlusCircle } from 'react-icons/bs';
 import {AiOutlineMinusCircle} from 'react-icons/ai';
 import { BASE_API_URL } from "../utils/constants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { setUserData } from "../actions";
 
 
 function ListItem(props) {
@@ -12,15 +13,18 @@ function ListItem(props) {
     const userData = useSelector(state => state.user.userData)
     const isLogged = useSelector(state => state.user.isLogged)
     let history = useHistory();
+    const dispatch = useDispatch()
 
-    function addToList(cid){
+    function addToList(e,cid){
+        e.stopPropagation();
+        e.preventDefault();
         if(isLogged){
             fetch(`/api/add-to-list`,{
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({userid:21001, contentID:cid})
+                body: JSON.stringify({userid:userData.userDetails.CustomerID, contentID:cid})
             }).then(res=>res.json()).then(data=>
-                console.log('added: ',data)
+                dispatch(setUserData({userData:{...userData,userContent:data.updatedContent}}))
             )
         }else{
             history.push('/login')
@@ -28,13 +32,15 @@ function ListItem(props) {
 
     }
 
-    function removeFromList(cid){
+    function removeFromList(e,cid){
+        e.stopPropagation();
+        e.preventDefault();
         fetch(`/api/remove-from-list`,{
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({userid:21001, contentID:cid})
+            body: JSON.stringify({userid:userData.userDetails.CustomerID, contentID:cid})
         }).then(res=>res.json()).then(data=>
-            console.log('removed: ',data)
+            dispatch(setUserData({userData:{...userData,userContent:data.updatedContent}}))
         )
     }
 
@@ -85,12 +91,12 @@ function ListItem(props) {
                             <div className="preview d-flex justify-content-start mb-2">
                                 <FaRegPlayCircle className="preview-play-btn mr-10"/>
                                 {!inList?
-                                <a className="title-text" onClick={()=>addToList(props.item['ContentID'])}>
+                                <a className="title-text" onClick={(e)=>addToList(e,props.item['ContentID'])}>
                                     <BsPlusCircle className="preview-play-btn"/>
                                     <span className="t"><span>Add to My List</span></span>
                                 </a>
                                 :
-                                <a className="title-text" onClick={()=>removeFromList(props.item['ContentID'])}>
+                                <a className="title-text" onClick={(e)=>removeFromList(e,props.item['ContentID'])}>
                                     <AiOutlineMinusCircle className="preview-play-btn"/>
                                     <span className="t"><span>Remove from My List</span></span>
                                     {/* <span className="title">Remove from List<span className="arrow"></span></span> */}

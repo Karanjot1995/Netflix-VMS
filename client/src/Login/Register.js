@@ -32,7 +32,7 @@ function Register() {
       body: JSON.stringify(data)
     }).then(res=>res.json()).then(data=>{
       if(data.success){
-        // alert(data.message)
+        alert(data.message)
         history.push('/login')
       }else{
         setErrMsgs(data.message)
