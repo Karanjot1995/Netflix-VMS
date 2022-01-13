@@ -23,9 +23,10 @@ function ListItem(props) {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({userid:userData.userDetails.CustomerID, contentID:cid})
-            }).then(res=>res.json()).then(data=>
+            }).then(res=>res.json()).then(data=>{
                 dispatch(setUserData({userData:{...userData,userContent:data.updatedContent}}))
-            )
+                inListItem(data.updatedContent)
+            })
         }else{
             history.push('/login')
         }
@@ -39,18 +40,23 @@ function ListItem(props) {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({userid:userData.userDetails.CustomerID, contentID:cid})
-        }).then(res=>res.json()).then(data=>
+        }).then(res=>res.json()).then(data=>{
             dispatch(setUserData({userData:{...userData,userContent:data.updatedContent}}))
-        )
+            inListItem(data.updatedContent)
+        })
+    }
+
+    function inListItem(uc){
+        uc.map(c=>{
+            if(c.ContentID == props.item['ContentID']){
+                setInlist(true)
+            }
+        })
     }
 
     useEffect(async () => {
         if(userData.userContent?.length){
-            userData.userContent.map(c=>{
-                if(c.ContentID == props.item['ContentID']){
-                    setInlist(true)
-                }
-            })
+            inListItem(userData.userContent)
         }
 
     },[]);
