@@ -14,7 +14,8 @@ function SliderSection (props) {
     const {list,genre,id, title, keyWord} = props
 
     const [components, setComponents] = useState([]); 
-  
+    const width = window.innerWidth;
+    const minListLength = width>700?4:2
 
     let pathname = location.pathname
     if(pathname[0]=='/'){
@@ -95,7 +96,7 @@ function SliderSection (props) {
                         </a>
                     </h2>
                     {/* <h3 className="text-uppercase row-header-title">{id} and {genre}</h3> */}
-                    {list.length>4 ?
+                    {list.length> minListLength ?
                     <Slider className="mt-3 mb-4" {...settings}>
                         {list.map(item=><ListItem item={item} />)}
                     </Slider>
