@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ListItem from "../common/ListItem";
+import { BiSearch } from 'react-icons/bi';
 import { FaSearch } from 'react-icons/fa';
 import { useLocation, matchPath ,useHistory} from 'react-router-dom';
 import { BASE_API_URL } from "../utils/constants";
@@ -52,7 +53,8 @@ function Search () {
     return (
         <div className="" id="search">
             <div className="search-bar">
-                <input onClick={openSearch} placeholder="Search titles..." disabled={disabled}/>
+                <input onClick={openSearch} className="input-search" placeholder="Search titles..." disabled={disabled}/>
+                <BiSearch fill="#9b9ea3" className="nav-search" onClick={openSearch}/>
                 <div id="myOverlay" class={`overlay ${toggle}`}>
                     <span class="closebtn" onClick={closeSearch} title="Close Overlay">×</span>
                     <div class="overlay-content">
@@ -81,14 +83,6 @@ function Search () {
                                                 <p className="text-light">{item['AverageRating'].toFixed(1)}</p>
                                             </div>
                                         </a>
-                                        //  <a className="search-link d-flex" href={`/content/${item['ContentID']}`}>
-                                        //     <tr className="search-res p-2">
-                                        //         <td><img height="50px" src ={item['ImageData']?item['ImageData']:'https://www.russorizio.com/wp-content/uploads/2016/07/ef3-placeholder-image.jpg'}/></td>
-                                        //         <td><p className="text-light">{item['ContentName']}</p></td>
-                                        //         <td><p className="text-light">{item['Genre']}</p></td>
-                                        //         <td><p className="text-light">{item['AverageRating'].toFixed(1)}</p></td>
-                                        //     </tr>
-                                        // </a>
                                     )}
                                     </table>
                                 </div>

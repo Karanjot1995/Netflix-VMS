@@ -4,3 +4,10 @@ export const setUserData = payload => {
       payload
     };
 };
+
+export const getWindowDimensions = payload => {
+  return {
+    type: "WINDOW_SIZE",
+    payload
+  };
+};

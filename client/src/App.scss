@@ -582,6 +582,31 @@ label {
 }
 
 
+@media screen and (max-width:500px) {
+  .section{
+    padding:0.5rem 1rem;
+  }
+  .list-item{
+    padding-right: 5px;
+  }
+  .main-header{
+    .navigation {
+      width: 100%;
+      padding-left: 0;
+    }
+  }
+  .rowHeader{
+    .row-header-title{
+      font-size: 16px;
+    }
+
+  } 
+  #all-content .content .content-list .list-item, #my-list .content .content-list .list-item {
+    width: 33%;
+  }
+
+}
+
 
 
 

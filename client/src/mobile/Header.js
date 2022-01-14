@@ -1,14 +1,12 @@
-import { Component } from "react";
 import Search from "./Search";
 // import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { useLocation, matchPath ,useHistory} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../actions";
-import useWindowDimensions from "./DeviceSize";
 
 
-function Header (){
+function MobileHeader (){
     const location = useLocation();
     let history = useHistory();
     const userData = useSelector(state => state.user.userData)
@@ -103,6 +101,6 @@ function Header (){
 
 }
 
-export default Header;
+export default MobileHeader;
 
 

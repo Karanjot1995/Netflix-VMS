@@ -51,5 +51,27 @@ const listReducer = (state = INITIAL_STATE, action) => {
 
   return state;
 };
+
+
+const windowSize = (state = INITIAL_STATE, action) => {
+  // const newState = Object.assign({}, state);
+  switch (action.type) {
+    case "WINDOW_SIZE":
+      // return {
+      // }
+      state = {
+        ...state,
+        ...action.payload
+      }
+      // newState["userData"] = {
+      //   ...action.payload
+      // };
+      break;
+    default:
+      break;
+  }
+
+  return state;
+};
   
-  export default listReducer;
+export {listReducer,windowSize};

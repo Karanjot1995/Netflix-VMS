@@ -16,15 +16,26 @@ import GenrePage from "./GenrePage/GenrePage";
 import UserContent from "./UserContent/UserContent";
 import { useSelector, useDispatch } from 'react-redux'
 import { setUserData } from "./actions";
+import BottomNav from "./mobile/BottomNav";
+import useWindowSize from "./common/DeviceSize";
+// import useWindowDimensions from "./common/DeviceSize";
 
 
 function App() {
-  // const [content, setAllContent] = useState({})
-  // const userData = useSelector(state => state.userData)
-  // const dispatch = useDispatch()
+  // const [windowDimensions, setWindowDimensions] = useState(useWindowDimensions) 
   const userData = useSelector(state => state.user.userData)
   const isLogged = useSelector(state => state.user.isLogged)
 
+  const windowSize = useWindowSize()
+  const [isMobile, setIsMobile] = useState(false)
+ 
+  useEffect(() => {
+    if(windowSize.width>600){
+      setIsMobile(false)
+    }else{
+      setIsMobile(true)
+    }
+  },[])
   // useEffect(async () => {
   //   fetch(`/api/user-list`,{
   //     method: "POST",
@@ -34,12 +45,14 @@ function App() {
   //     dispatch(setUserData(data))
   //   )
   // },[]);
+  // console.log(isMobile,windowSize)
   console.log(userData,isLogged)
 
 
   return (
     <div className="App">
       <Header/>
+      {isMobile?<BottomNav/>:''}
       <Switch>
         <Route exact path="/"><Redirect to ="/home" /></Route>
         <Route exact path={"/home"}><Home/></Route>

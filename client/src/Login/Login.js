@@ -10,6 +10,9 @@ function Login() {
   const [password, setPassword] = useState ("");
   const [loginStatus, setLoginStatus] = useState("");
   const userData = useSelector(state => state.user.userData)
+  // const [value, setValue] = React.useState(
+  //   localStorage.getItem('persistantState') || ''
+  // )
   const isLogged = useSelector(state => state.user.isLogged)
 
   const dispatch = useDispatch()
@@ -21,6 +24,7 @@ function Login() {
       body: JSON.stringify({email: email,password: password})
     }).then(res=>res.json()).then(data=>{
       if(data.isLogged){
+        // localStorage.setItem('persistantState',JSON.stringify({userData:data,isLogged:true}));
         dispatch(setUserData({userData:data,isLogged:true}))
       }
       // setLoginStatus(data);

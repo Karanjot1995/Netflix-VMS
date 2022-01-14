@@ -212,3 +212,13 @@
     // }
 }
 
+@media screen and (max-width:600px) {
+    .login-page{
+        .login-body {
+            width: 65%;
+            margin: auto;
+        }
+    }
+}
+
+

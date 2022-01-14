@@ -32,7 +32,16 @@ function SliderSection (props) {
         slidesToShow: 5,
         slidesToScroll: 1,
         nextArrow: <NextArrow />,
-        prevArrow: <PrevArrow />    
+        prevArrow: <PrevArrow />,
+        responsive: [
+        {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+            }
+          }  
+        ]
     };
 
     function exploreAll(){
