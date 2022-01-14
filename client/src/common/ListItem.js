@@ -26,6 +26,27 @@ function ListItem(props) {
     //     setIsMobile(true)
     //   }
     // },[])
+    function inListItem(uc,id){
+        let cid = null
+        uc.map(c=>{
+            if(c.ContentID == props.item['ContentID']){
+                cid = c.ContentID
+                // setInlist(true)
+            }
+        })
+        if(cid == props.item['ContentID']){
+            setInlist(true)
+        }else{
+            setInlist(false)
+        }
+    }
+
+    useEffect( () => {
+        if(userData.userContent?.length){
+            inListItem(userData.userContent)
+        }
+
+    },[]);
 
     function addToList(e,cid){
         e.stopPropagation();
@@ -58,25 +79,7 @@ function ListItem(props) {
         })
     }
 
-    function inListItem(uc){
-        uc.map(c=>{
-            if(c.ContentID == props.item['ContentID']){
-                setInlist(true)
-            }
-        })
-    }
 
-    useEffect(async () => {
-        if(userData.userContent?.length){
-            inListItem(userData.userContent)
-        }
-        // if(windowSize.width>600){
-        //     setIsMobile(false)
-        //   }else{
-        //     setIsMobile(true)
-        // }
-
-    },[]);
 
 
     let imgData = props.item['ImageData'];

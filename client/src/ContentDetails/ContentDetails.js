@@ -18,14 +18,14 @@ function ContentDetails(props) {
     const isLogged = useSelector(state => state.user.isLogged)
     const dispatch = useDispatch()
 
-    function inListItem(uc,id){
+    function inListItem(uc){
         let cid = null
         uc.map(c=>{
-            if(c.ContentID == id){
+            if(c.ContentID == content.ContentID){
                 cid = c.ContentID
             }
         })
-        if(cid == id){
+        if(cid == content.ContentID){
             setInlist(true)
         }else{
             setInlist(false)
@@ -41,16 +41,16 @@ function ContentDetails(props) {
         }).then(res => res.json()).then(data=>{
             setContent(data[0])
             if(userData.userContent?.length){
-                inListItem(userData.userContent, data[0].ContentID)
+                inListItem(userData.userContent)
             }
         });
     },[]);
 
     useEffect( () => {
         if(userData.userContent?.length){
-            inListItem(userData.userContent, content.ContentID)
+            inListItem(userData.userContent)
         }
-    });
+    },[]);
 
 
     function addToList(e,cid){
@@ -61,7 +61,7 @@ function ContentDetails(props) {
                 body: JSON.stringify({userid:userData.userDetails.CustomerID, contentID:cid})
             }).then(res=>res.json()).then(data=>{
                 dispatch(setUserData({userData:{...userData,userContent:data.updatedContent}}))
-                // inListItem(data.updatedContent)
+                inListItem(data.updatedContent)
             })
         }else{
             history.push('/login')
@@ -76,7 +76,7 @@ function ContentDetails(props) {
             body: JSON.stringify({userid:userData.userDetails.CustomerID, contentID:cid})
         }).then(res=>res.json()).then(data=>{
             dispatch(setUserData({userData:{...userData,userContent:data.updatedContent}}))
-            // inListItem(data.updatedContent)
+            inListItem(data.updatedContent)
         })
     }
     
