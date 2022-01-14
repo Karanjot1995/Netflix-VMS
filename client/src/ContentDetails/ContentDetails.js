@@ -19,11 +19,17 @@ function ContentDetails(props) {
     const dispatch = useDispatch()
 
     function inListItem(uc,id){
+        let cid = null
         uc.map(c=>{
             if(c.ContentID == id){
-                setInlist(true)
+                cid = c.ContentID
             }
         })
+        if(cid == id){
+            setInlist(true)
+        }else{
+            setInlist(false)
+        }
     }
 
 
@@ -40,10 +46,14 @@ function ContentDetails(props) {
         });
     },[]);
 
+    useEffect( () => {
+        if(userData.userContent?.length){
+            inListItem(userData.userContent, content.ContentID)
+        }
+    });
+
 
     function addToList(e,cid){
-        e.stopPropagation();
-        e.preventDefault();
         if(isLogged){
             fetch(`/api/add-to-list`,{
                 method: "POST",
@@ -51,7 +61,7 @@ function ContentDetails(props) {
                 body: JSON.stringify({userid:userData.userDetails.CustomerID, contentID:cid})
             }).then(res=>res.json()).then(data=>{
                 dispatch(setUserData({userData:{...userData,userContent:data.updatedContent}}))
-                inListItem(data.updatedContent)
+                // inListItem(data.updatedContent)
             })
         }else{
             history.push('/login')
@@ -60,15 +70,13 @@ function ContentDetails(props) {
     }
 
     function removeFromList(e,cid){
-        e.stopPropagation();
-        e.preventDefault();
         fetch(`/api/remove-from-list`,{
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({userid:userData.userDetails.CustomerID, contentID:cid})
         }).then(res=>res.json()).then(data=>{
             dispatch(setUserData({userData:{...userData,userContent:data.updatedContent}}))
-            inListItem(data.updatedContent)
+            // inListItem(data.updatedContent)
         })
     }
     
