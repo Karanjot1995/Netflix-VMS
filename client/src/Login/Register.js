@@ -186,7 +186,7 @@ function Register() {
           </form>
           <div className="login-signup-now text-start" data-uia="login-signup-now">
                   {`Already a member? `}
-                  <a className=" " target="_self" href="/register">Sign In</a>
+                  <a className=" " target="_self" href="/login">Sign In</a>
           </div>
         </div>
 

@@ -539,7 +539,10 @@ label {
 }
 
 
-@media screen and (max-width:500px) {
+@media screen and (max-width:600px) {
+  .app{
+    padding-bottom: 60px;
+  }
   .section{
     padding:0.5rem 1rem;
   }
