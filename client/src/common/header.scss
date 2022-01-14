@@ -314,6 +314,18 @@
 }
 
 @media screen and (max-width:768px){
+    .sub-nav{
+        .nav-steps{
+            padding-left: 0;
+            a{
+                font-size: 20px;
+            }
+            p{
+                font-size: 25px;
+            }
+        }
+    }
+
     .overlay-content .overlay-search {
         width: 100%;
         input[type=text] {
