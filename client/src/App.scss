@@ -553,9 +553,6 @@ label {
   .m-pb-50{
     padding-bottom: 50px;
   }
-
-
-  
   .banner{
     .banner-item{
       height: 450px;
@@ -612,6 +609,56 @@ label {
     width: 33%;
   }
 
+}
+
+@media screen and (min-width:600px){
+  .preview{
+    text-align: left!important;
+    .title-text:hover{
+      position: relative;
+    }
+    .title-text .t {
+      display: none;
+      font-size: 1.2vw;
+      font-weight: 500;
+    }
+    .title-text:hover{
+      .t{
+        border-radius: 5px;
+        padding: 5px 10px;
+        width:max-content;
+        display: block;
+        z-index: 100;
+        left:50%;
+        right:50%;
+        transform: translate(-50%);
+        background:#e0e0e0;
+        position: absolute;
+        bottom:140%;
+        text-decoration: none;
+        span{
+          color:#141414;
+          position: relative;
+          &:after{
+            content: '';
+            position: absolute;
+            left: 50%;
+            right: 50%;
+            transform: translate(-50%);              
+            bottom:-13px;              
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 7px solid #e0e0e0;
+            clear: both;
+          }
+        }
+
+      }
+    }
+
+  }
 }
 
 
