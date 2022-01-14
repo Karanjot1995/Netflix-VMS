@@ -16,8 +16,9 @@ import GenrePage from "./GenrePage/GenrePage";
 import UserContent from "./UserContent/UserContent";
 import { useSelector, useDispatch } from 'react-redux'
 import { setUserData } from "./actions";
-import BottomNav from "./mobile/BottomNav";
+import BottomNav from "./mobile/Header/BottomNav";
 import useWindowSize from "./common/DeviceSize";
+import ContentDetails from "./ContentDetails/ContentDetails";
 // import useWindowDimensions from "./common/DeviceSize";
 
 
@@ -61,7 +62,8 @@ function App() {
         <Route path={["/movies/:id","/shows/:id"]}><GenrePage/></Route>
         <Route path="/movies"><Movies/></Route>
         <Route path="/latest"><NewPopular/></Route>  
-        <Route path={`/content/:id`}><Content/></Route>  
+        <Route exact path={`/content/:id`}><Content/></Route>  
+        <Route path={`/content/info/:id`}><ContentDetails/></Route>  
         <Route exact path="/register"><Register/></Route>
         <Route exact path="/profile"><Profile/></Route>   
         <Route path="/login" 

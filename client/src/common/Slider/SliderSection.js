@@ -7,6 +7,8 @@ import { NextArrow, PrevArrow } from "../SlickArrow";
 import { FaChevronRight } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import Explore from "../Explore/Explore";
+import useWindowSize from "../DeviceSize";
+import MobileListItem from "../../mobile/ListItem/MobileListItem";
 
 function SliderSection (props) {  
     const[explore, setExplore] = useState(false)
@@ -16,6 +18,16 @@ function SliderSection (props) {
     const [components, setComponents] = useState([]); 
     const width = window.innerWidth;
     const minListLength = width>700?4:2
+    const windowSize = useWindowSize()
+    const [isMobile, setIsMobile] = useState(false)
+   
+    useEffect(() => {
+      if(windowSize.width>600){
+        setIsMobile(false)
+      }else{
+        setIsMobile(true)
+      }
+    })
 
     let pathname = location.pathname
     if(pathname[0]=='/'){
@@ -98,7 +110,7 @@ function SliderSection (props) {
                     {/* <h3 className="text-uppercase row-header-title">{id} and {genre}</h3> */}
                     {list.length> minListLength ?
                     <Slider className="mt-3 mb-4" {...settings}>
-                        {list.map(item=><ListItem item={item} />)}
+                        {list.map(item=> isMobile?<MobileListItem item={item} />:<ListItem item={item} /> )}
                     </Slider>
                     :
                     <div className="content-list d-flex mt-3 mb-4">{list.map(item=><ListItem item={item} />)}</div>

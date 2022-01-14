@@ -1,10 +1,10 @@
 import { Component } from "react";
-import Search from "../common/Search";
+import Search from "../../common/Search";
 // import { useNavigate } from "react-router-dom";
 import {RiHome2Line} from "react-icons/ri" 
 import { useLocation, matchPath ,useHistory, Link} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { setUserData } from "../actions";
+import { setUserData } from "../../actions";
 
 
 function BottomNav (){
