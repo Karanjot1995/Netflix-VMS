@@ -35,7 +35,7 @@ function App() {
     }else{
       setIsMobile(true)
     }
-  },[])
+  })
   // useEffect(async () => {
   //   fetch(`/api/user-list`,{
   //     method: "POST",
@@ -45,7 +45,7 @@ function App() {
   //     dispatch(setUserData(data))
   //   )
   // },[]);
-  // console.log(isMobile,windowSize)
+  console.log(isMobile,windowSize)
   console.log(userData,isLogged)
 
 
