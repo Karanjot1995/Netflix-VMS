@@ -6,6 +6,7 @@ import { BASE_API_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { setUserData } from "../actions";
+// import useWindowSize from "./DeviceSize";
 
 
 function ListItem(props) {
@@ -14,6 +15,17 @@ function ListItem(props) {
     const isLogged = useSelector(state => state.user.isLogged)
     let history = useHistory();
     const dispatch = useDispatch()
+    const width = window.innerWidth;
+    // const windowSize = useWindowSize()
+    // const [isMobile, setIsMobile] = useState(false)
+   
+    // useEffect(() => {
+    //   if(windowSize.width>600){
+    //     setIsMobile(false)
+    //   }else{
+    //     setIsMobile(true)
+    //   }
+    // },[])
 
     function addToList(e,cid){
         e.stopPropagation();
@@ -58,6 +70,11 @@ function ListItem(props) {
         if(userData.userContent?.length){
             inListItem(userData.userContent)
         }
+        // if(windowSize.width>600){
+        //     setIsMobile(false)
+        //   }else{
+        //     setIsMobile(true)
+        // }
 
     },[]);
 
@@ -83,6 +100,7 @@ function ListItem(props) {
                     </div>
                 </a>
             </div>
+            {width>700?
             <div class='popup'>
                 <a href={`/content/${props.item['ContentID']}`} className="content-link">
                     <div className="card-details text-center mb-3">
@@ -122,6 +140,25 @@ function ListItem(props) {
                     </div>
                 </a>
             </div>
+            :
+            ''
+            // <div className="preview d-flex justify-content-start mb-2">
+            //     {/* <FaRegPlayCircle className="preview-play-btn mr-10"/> */}
+            //     {!inList?
+            //     <a className="title-text" onClick={(e)=>addToList(e,props.item['ContentID'])}>
+            //         <BsPlusCircle className="preview-play-btn"/>
+            //         <span className="t"><span>Add to My List</span></span>
+            //     </a>
+            //     :
+            //     <a className="title-text" onClick={(e)=>removeFromList(e,props.item['ContentID'])}>
+            //         <AiOutlineMinusCircle className="preview-play-btn"/>
+            //         <span className="t"><span>Remove from List</span></span>
+            //         {/* <span className="title">Remove from List<span className="arrow"></span></span> */}
+            //     </a>
+            //     }
+
+            // </div>
+            }
         </div>
 
     );

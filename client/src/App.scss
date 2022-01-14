@@ -158,59 +158,16 @@ h1,h2,h3,p,span{
       }
     }
 
-    .preview{
-      text-align: left!important;
-      .title-text:hover{
-        position: relative;
-      }
-      .title-text .t {
-        display: none;
-        font-size: 1.2vw;
-        font-weight: 500;
-      }
-      .title-text:hover{
-        .t{
-          border-radius: 5px;
-          padding: 5px 10px;
-          width:max-content;
-          display: block;
-          z-index: 100;
-          left:50%;
-          right:50%;
-          transform: translate(-50%);
-          background:#e0e0e0;
-          position: absolute;
-          bottom:140%;
-          text-decoration: none;
-          span{
-            color:#141414;
-            position: relative;
-            &:after{
-              content: '';
-              position: absolute;
-              left: 50%;
-              right: 50%;
-              transform: translate(-50%);              
-              bottom:-13px;              
-              width: 0;
-              height: 0;
-              border-left: 10px solid transparent;
-              border-right: 10px solid transparent;
-              border-top: 7px solid #e0e0e0;
-              clear: both;
-            }
-          }
 
-        }
-      }
-
-    }
-    .preview-play-btn{
-      text-align: left;
-      color:white;
-      height:30px;
-      width:30px;
-    }
+  }
+  .preview{
+    text-align: left!important;
+  }
+  .preview-play-btn{
+    text-align: left;
+    color:white;
+    height:30px;
+    width:30px;
   }
   &:hover{
     // transition: 1s;
@@ -586,8 +543,31 @@ label {
   .section{
     padding:0.5rem 1rem;
   }
+  #all-content{
+    padding-bottom: 50px;
+  }
   .list-item{
     padding-right: 5px;
+    .preview{
+      .t{
+        font-size: 14px;
+      }
+      .title-text{
+        display: flex;
+        align-items: center;
+      }
+      .preview-play-btn{
+        width:17px;
+        height: 17px;
+        margin-right: 4px;
+      }
+    }
+  }
+  .card-item{
+    &:hover{
+      visibility: visible;
+      opacity: 1;
+    }
   }
   .main-header{
     .navigation {

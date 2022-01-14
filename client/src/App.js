@@ -45,7 +45,6 @@ function App() {
   //     dispatch(setUserData(data))
   //   )
   // },[]);
-  console.log(isMobile,windowSize)
   console.log(userData,isLogged)
 
 
