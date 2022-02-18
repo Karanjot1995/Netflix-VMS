@@ -1,13 +1,21 @@
 const mysql = require('mysql');
 const util = require('util');
 
+// let config = {
+//     host     : 'netflix-vms.cjnhrlike9ax.us-east-2.rds.amazonaws.com',
+//     user     : 'admin',
+//     password : 'karan1195',
+//     port     : '3306',
+//     database:'VMS'
+// };
 let config = {
-    host     : 'netflix-vms.cjnhrlike9ax.us-east-2.rds.amazonaws.com',
-    user     : 'admin',
-    password : 'karan1195',
-    port     : '3306',
-    database:'VMS'
+    host     : 'remotemysql.com',
+    user     : '6Yp3q3zcNd',
+    password : 'enc1taaYIV',
+    database:'6Yp3q3zcNd',
+    port:'3306'
 };
+
 let connection;
 
 exports.login = async function(req, res) {
