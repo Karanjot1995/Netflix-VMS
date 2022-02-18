@@ -13,14 +13,41 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/", require("./routes"));
 
+// let config = {
+//     host     : 'netflix-vms.cjnhrlike9ax.us-east-2.rds.amazonaws.com',
+//     user     : 'admin',
+//     password : 'karan1195',
+//     port     : '3306',
+//     database:'VMS'
+// };
+
 let config = {
-    host     : 'netflix-vms.cjnhrlike9ax.us-east-2.rds.amazonaws.com',
-    user     : 'admin',
-    password : 'karan1195',
-    port     : '3306',
-    database:'VMS'
+    host     : 'remotemysql.com',
+    user     : '6Yp3q3zcNd',
+    password : 'enc1taaYIV',
+    database:'6Yp3q3zcNd',
+    port:'3306'
 };
+
 let connection;
+
+
+// const connection = mysql.createPool({
+//     host     : 'remotemysql.com',
+//     user     : '6Yp3q3zcNd',
+//     password : 'enc1taaYIV',
+//     database:'6Yp3q3zcNd',
+//     port:'3306'
+// });
+
+// connection.query(
+//   "Select * from F21_S001_16_Customer",
+//   (err, result) => {
+//     err ? console.log(err) : console.log(result);
+//   }
+// );
+
+
 
 
 
@@ -58,6 +85,7 @@ app.get('/api/all-content', async (req, res) => {
     try {
         // conn();
         let connection = mysql.createConnection(config);
+        console.log(connection)
         connection.connect();
         let query = util.promisify(connection.query).bind(connection);
 
