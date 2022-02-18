@@ -29,7 +29,12 @@ let config = {
     port:'3306'
 };
 
+// let conn = mysql.createConnection(config);
+// let connectionsAv = conn.query(`SET GLOBAL max_user_connections = 300;`)
+
+
 let connection;
+
 
 
 // const connection = mysql.createPool({
@@ -89,6 +94,8 @@ app.get('/api/all-content', async (req, res) => {
         connection.connect();
         let query = util.promisify(connection.query).bind(connection);
 
+
+
         let result = await query(
             `select C.ContentID, C.ContentName, C.ImageData, C.AverageRating,  CG.Genre
             from F21_S001_16_Content C JOIN (
@@ -106,19 +113,23 @@ app.get('/api/all-content', async (req, res) => {
                 c[i]['Genre'] = g
             }
         }
+        connection.end()
   
     } catch (err) {
         console.error('why this error: ', err);
     } finally {
         if (connection) {
             try {
-                connection.end();
+                connection.end(function() {
+                    console.log("Connection to database closed.");
+                });
             } catch (err) {
                 console.error(err);
             }
         }
     }
     res.send(data)
+
 })
 
 
@@ -150,6 +161,8 @@ app.get('/api/all-movies', async (req, res) => {
         //     limit 5`
         // )
         data = {content}
+        connection.end()
+
     } catch (err) {
         console.error('why this error: ', err);
     } finally {
@@ -162,6 +175,9 @@ app.get('/api/all-movies', async (req, res) => {
         }
     }
     res.send(data)
+    // if(connection){
+    //     connection.end();
+    // }
 
 })
 
@@ -211,6 +227,8 @@ app.post('/api/popular', async (req, res) => {
         }
 
         data = {mostViewed}
+        connection.end()
+
     } catch (err) {
         console.error('why this error: ', err);
     } finally {
@@ -264,7 +282,8 @@ app.post('/api/best-rated', async (req, res) => {
         )
         data.bestRated = bestRated
         // having avg(Rating) between (${req.body.maxRating},${req.body.minRating})
-    
+        connection.end()
+
     } catch (err) {
         console.error('why this error: ', err);
     } finally {
@@ -312,7 +331,8 @@ app.get('/api/shows', async (req, res) => {
 
         data.shows = shows
         // having avg(Rating) between (${req.body.maxRating},${req.body.minRating})
-    
+        connection.end()
+
     } catch (err) {
         console.error('why this error: ', err);
     } finally {
@@ -370,7 +390,8 @@ app.get('/api/movies', async (req, res) => {
         data.movies = movies
         // data.common = common
         // having avg(Rating) between (${req.body.maxRating},${req.body.minRating})
-    
+        connection.end()
+
     } catch (err) {
         console.error('why this error: ', err);
     } finally {
@@ -421,7 +442,8 @@ app.post('/api/new-releases', async (req, res) => {
             )   
         }
         data.content = content;
-  
+        connection.end()
+
     } catch (err) {
         console.error('why this error: ', err);
     } finally {
@@ -458,7 +480,8 @@ app.post('/api/search', async (req, res) => {
             )
             data = result;
         }
-  
+        connection.end()
+
     } catch (err) {
         console.error('why this error: ', err);
     } finally {
@@ -489,6 +512,7 @@ app.post('/api/content/:id', async (req, res) => {
             where ContentID = ${req.params.id}`
         )  
         data = result
+        connection.end()
 
     } catch (err) {
         console.error('why this error: ', err);
@@ -536,7 +560,8 @@ app.post('/api/user-list', async (req, res) => {
 
         data.userContent = userContent
         // having avg(Rating) between (${req.body.maxRating},${req.body.minRating})
-    
+        connection.end()
+
     } catch (err) {
         console.error('why this error: ', err);
     } finally {
@@ -579,7 +604,8 @@ app.post('/api/add-to-list', async (req, res) => {
         data.updatedContent = updatedContent
         data.userContent = userContent
         connection.commit()
-    
+        connection.end()
+
     } catch (err) {
         console.error('why this error: ', err);
     } finally {
@@ -621,6 +647,8 @@ app.post('/api/remove-from-list', async (req, res) => {
         data.userContent = userContent
         data.updatedContent = updatedContent
         connection.commit()
+        connection.end()
+
     } catch (err) {
         console.error('why this error: ', err);
     } finally {
@@ -655,7 +683,8 @@ app.post('/api/country-content', async (req, res) => {
             order by C.ContentID asc`
         )  
         data.list = result
-  
+        connection.end()
+
     } catch (err) {
         console.error('why this error: ', err);
     } finally {
